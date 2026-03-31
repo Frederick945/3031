@@ -15,7 +15,6 @@
             background: black;
         }
 
-        /* Imagen fija detrás del texto */
         .background-image {
             position: fixed;
             top: 0;
@@ -26,28 +25,50 @@
             background-size: cover;
             background-position: center;
             z-index: -1;
-            filter: brightness(0.4); /* Opcional para que el texto resalte */
+            filter: brightness(0.4);
         }
 
         .text {
             max-width: 600px;
             font-size: 1.3em;
-            white-space: pre-wrap; /* <- Aquí se respetan espacios y saltos de línea */
+            white-space: pre-wrap;
+            position: relative;
         }
 
         .signature {
             margin-top: 40px;
             font-weight: bold;
         }
+
+        /* Botón azul */
+        .func-button {
+            display: inline-block;
+            margin-right: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1em;
+            border-radius: 3px;
+            text-decoration: none;
+        }
+
+        .func-container {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+        }
     </style>
 </head>
 <body>
     <div class="background-image"></div>
 
-    <div class="text">
+    <div class="text" id="text-content">
 Hello.
 
--÷62.9571281,-60.7520644÷,25966
+-÷62.9571281,-60.7520644÷,25966 <funcion></funcion>
 
 At these coordinates, you must begin your search for meaning—
 a meaning that unfolds into the next trace, the next whisper of direction.
@@ -75,5 +96,22 @@ for even what feels erroneous may be the only path to what is real.
 Good luck.
 <span class="signature">3031</span>
     </div>
+
+    <script>
+        const textDiv = document.getElementById('text-content');
+
+        // Reemplaza todas las etiquetas <funcion> por un contenedor con botón
+        textDiv.innerHTML = textDiv.innerHTML.replace(/<funcion>(.*?)<\/funcion>/gs, (match, texto) => {
+            texto = texto.trim();
+
+            // Contenedor con botón y texto
+            return `
+                <div class="func-container">
+                    <button class="func-button" onclick="window.open('https://www.google.com/maps/place/Isla+Decepción/@-62.9559513,-60.706739,19579m/data=!3m2!1e3!4b1!4m6!3m5!1s0xbc77305ea493cecb:0x31c3841136415bef!8m2!3d-62.9409297!4d-60.5553751!16zL20vMDE5MzBf?entry=ttu&g_ep=EgoyMDI2MDMyOS4wIKXMDSoASAFQAw%3D%3D','_blank')">→</button>
+                    <span>${texto}</span>
+                </div>
+            `;
+        });
+    </script>
 </body>
 </html>
